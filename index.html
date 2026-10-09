@@ -1,568 +1,871 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Ganesh Kumar - B.Tech CSE (IoT) Student & Web Developer Portfolio. Skilled in Python, Java, DSA, and Web Development." />
-  <meta name="keywords" content="Ganesh Kumar, Portfolio, Web Developer, B.Tech, CSE, IoT, Python, Java, DSA, GEC Banka" />
-  <meta name="author" content="Ganesh Kumar" />
-  <meta property="og:title" content="Ganesh Kumar | Portfolio" />
-  <meta property="og:description" content="B.Tech CSE (IoT) Student & Web Developer" />
-  <title>Ganesh Kumar | Portfolio</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Ganesh Kumar - B.Tech CSE (IoT) Student & Web Developer Portfolio. Skilled in Python, Java, DSA, and Web Development."
+    />
+    <meta
+      name="keywords"
+      content="Ganesh Kumar, Portfolio, Web Developer, B.Tech, CSE, IoT, Python, Java, DSA, GEC Banka"
+    />
+    <meta name="author" content="Ganesh Kumar" />
+    <meta property="og:title" content="Ganesh Kumar | Portfolio" />
+    <meta
+      property="og:description"
+      content="B.Tech CSE (IoT) Student & Web Developer"
+    />
+    <title>Ganesh Kumar | Portfolio</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>"
+    />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-  <!-- ========== PRELOADER ========== -->
-  <div id="preloader">
-    <div class="loader-wrap">
-      <div class="loader-ring"></div>
-      <div class="loader-ring"></div>
-      <div class="loader-ring"></div>
-      <span class="loader-text">GK</span>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ========== PRELOADER ========== -->
+    <div id="preloader">
+      <div class="loader-wrap">
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+        <span class="loader-text">GK</span>
+      </div>
     </div>
-  </div>
 
-  <!-- ========== CURSOR ========== -->
-  <div id="cursor"></div>
-  <div id="cursor-follower"></div>
+    <!-- ========== CURSOR ========== -->
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
 
-  <!-- ========== NAVBAR ========== -->
-  <header id="navbar">
-    <nav class="container nav-inner">
-      <a href="#home" class="logo">
-        <span class="logo-bracket">&lt;</span>GK<span class="logo-bracket">/&gt;</span>
-      </a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home" class="nav-link active">Home</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#education" class="nav-link">Education</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-      <div class="nav-actions">
-        <button id="themeToggle" aria-label="Toggle dark/light mode">
-          <i class="fas fa-moon" id="themeIcon"></i>
-        </button>
-        <button id="hamburger" aria-label="Toggle menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </nav>
-  </header>
-
-  <!-- ========== HERO ========== -->
-  <section id="home" class="hero-section">
-    <canvas id="particles-canvas"></canvas>
-    <div class="hero-glow glow-1"></div>
-    <div class="hero-glow glow-2"></div>
-    <div class="container hero-content" data-aos="fade-in">
-      <p class="hero-greeting">👋 Hello World, I'm</p>
-      <h1 class="hero-name">Ganesh <span class="gradient-text">Kumar</span></h1>
-      <div class="typing-wrapper">
-        <span class="typing-prefix">I'm a </span>
-        <span id="typed-text" class="typed"></span>
-        <span class="cursor-blink">|</span>
-      </div>
-      <p class="hero-tagline">Crafting digital experiences with code & creativity 🚀</p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">
-          <i class="fas fa-rocket"></i> View Projects
+    <!-- ========== NAVBAR ========== -->
+    <header id="navbar">
+      <nav class="container nav-inner">
+        <a href="#home" class="logo">
+          <span class="logo-bracket">&lt;</span>GK<span class="logo-bracket"
+            >/&gt;</span
+          >
         </a>
-        <a href="#contact" class="btn btn-outline">
-          <i class="fas fa-paper-plane"></i> Contact Me
-        </a>
-      </div>
-      <div class="hero-socials">
-        <a href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="mailto:ganeshkjibs8@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-        <a href="tel:+917764969732" aria-label="Phone"><i class="fas fa-phone"></i></a>
-      </div>
-    </div>
-    <div class="scroll-indicator">
-      <div class="mouse"><div class="wheel"></div></div>
-      <p>Scroll Down</p>
-    </div>
-  </section>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#education" class="nav-link">Education</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button id="themeToggle" aria-label="Toggle dark/light mode">
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <button id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
 
-  <!-- ========== ABOUT ========== -->
-  <section id="about" class="section">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <span class="section-tag">// about_me</span>
-        <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+    <!-- ========== HERO ========== -->
+    <section id="home" class="hero-section">
+      <canvas id="particles-canvas"></canvas>
+      <div class="hero-glow glow-1"></div>
+      <div class="hero-glow glow-2"></div>
+      <div class="container hero-content" data-aos="fade-in">
+        <p class="hero-greeting">👋 Hello World, I'm</p>
+        <h1 class="hero-name">
+          Ganesh <span class="gradient-text">Kumar</span>
+        </h1>
+        <div class="typing-wrapper">
+          <span class="typing-prefix">I'm a </span>
+          <span id="typed-text" class="typed"></span>
+          <span class="cursor-blink">|</span>
+        </div>
+        <p class="hero-tagline">
+          Crafting digital experiences with code & creativity 🚀
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">
+            <i class="fas fa-rocket"></i> View Projects
+          </a>
+          <a href="#contact" class="btn btn-outline">
+            <i class="fas fa-paper-plane"></i> Contact Me
+          </a>
+        </div>
+        <div class="hero-socials">
+          <a
+            href="https://github.com/"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://linkedin.com/"
+            target="_blank"
+            rel="noopener"
+            aria-label="LinkedIn"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <a href="mailto:ganeshkjibs8@gmail.com" aria-label="Email"
+            ><i class="fas fa-envelope"></i
+          ></a>
+          <a href="tel:+917764969732" aria-label="Phone"
+            ><i class="fas fa-phone"></i
+          ></a>
+        </div>
       </div>
-      <div class="about-grid">
-        <!-- Avatar Card -->
-        <div class="about-avatar-wrap" data-aos="fade-right">
-          <div class="avatar-card glass">
-            <div class="avatar-img-wrap">
-              <div class="avatar-placeholder">
-                <i class="fas fa-user-graduate"></i>
+      <div class="scroll-indicator">
+        <div class="mouse"><div class="wheel"></div></div>
+        <p>Scroll Down</p>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-tag">// about_me</span>
+          <h2 class="section-title">
+            About <span class="gradient-text">Me</span>
+          </h2>
+        </div>
+        <div class="about-grid">
+          <!-- Avatar Card -->
+          <div class="about-avatar-wrap" data-aos="fade-right">
+            <div class="avatar-card glass">
+              <div class="avatar-img-wrap">
+                <div class="avatar-placeholder">
+                  <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="avatar-badge"><i class="fas fa-code"></i></div>
               </div>
-              <div class="avatar-badge"><i class="fas fa-code"></i></div>
-            </div>
-            <div class="avatar-info">
-              <h3>Ganesh Kumar</h3>
-              <span>CSE (IoT) Student</span>
-            </div>
-            <div class="avatar-stats">
-              <div class="stat"><span class="stat-num">6.5</span><span>CGPA</span></div>
-              <div class="stat"><span class="stat-num">5+</span><span>Projects</span></div>
-              <div class="stat"><span class="stat-num">2</span><span>Certs</span></div>
-            </div>
-          </div>
-        </div>
-        <!-- About Text -->
-        <div class="about-text" data-aos="fade-left">
-          <h3>Building Tomorrow's Tech, Today</h3>
-          <p>
-            I'm <strong>Ganesh Kumar</strong>, a passionate B.Tech student specializing in
-            <strong>Computer Science &amp; Engineering (IoT)</strong> at
-            <strong>GEC Banka, Bihar Engineering University</strong> (2024–2028).
-          </p>
-          <p>
-            I love writing clean, efficient code and am driven by the excitement of solving
-            real-world problems through technology. With hands-on experience in
-            <strong>Python, Java, DSA, and Web Development</strong>, I'm always eager to
-            learn new skills and build impactful projects.
-          </p>
-          <p>
-            I completed an offline internship on
-            <strong>Industrial Training &amp; Web Development</strong> at
-            <strong>NIELIT EC Buxar</strong> and have participated in career-guidance sessions
-            organized by <strong>Grad Guru Innovation</strong>.
-          </p>
-          <div class="about-details">
-            <div class="detail-item"><i class="fas fa-map-marker-alt"></i><span>Navtol, Buchauli, Bhagwanpur, Begusarai, Bihar – 851120</span></div>
-            <div class="detail-item"><i class="fas fa-phone"></i><span>+91 7764969732</span></div>
-            <div class="detail-item"><i class="fas fa-envelope"></i><span>ganeshkjibs8@gmail.com</span></div>
-            <div class="detail-item"><i class="fas fa-university"></i><span>GEC Banka — Bihar Engineering University</span></div>
-          </div>
-          <a href="#contact" class="btn btn-primary mt-1"><i class="fas fa-handshake"></i> Let's Connect</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== SKILLS ========== -->
-  <section id="skills" class="section section-alt">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <span class="section-tag">// my_skills</span>
-        <h2 class="section-title">Tech <span class="gradient-text">Stack</span></h2>
-      </div>
-
-      <!-- Tech Icons -->
-      <div class="tech-grid" data-aos="fade-up" data-aos-delay="100">
-        <div class="tech-card glass">
-          <i class="fab fa-python tech-icon ti-python"></i>
-          <span>Python</span>
-        </div>
-        <div class="tech-card glass">
-          <i class="fab fa-java tech-icon ti-java"></i>
-          <span>Java / OOP</span>
-        </div>
-        <div class="tech-card glass">
-          <i class="fab fa-html5 tech-icon ti-html"></i>
-          <span>HTML5</span>
-        </div>
-        <div class="tech-card glass">
-          <i class="fab fa-css3-alt tech-icon ti-css"></i>
-          <span>CSS3</span>
-        </div>
-        <div class="tech-card glass">
-          <i class="fab fa-js-square tech-icon ti-js"></i>
-          <span>JavaScript</span>
-        </div>
-        <div class="tech-card glass">
-          <i class="fas fa-sitemap tech-icon ti-dsa"></i>
-          <span>DSA</span>
-        </div>
-        <div class="tech-card glass">
-          <i class="fas fa-microchip tech-icon ti-os"></i>
-          <span>Operating System</span>
-        </div>
-        <div class="tech-card glass">
-          <i class="fas fa-network-wired tech-icon ti-net"></i>
-          <span>Computer Networks</span>
-        </div>
-        <div class="tech-card glass">
-          <i class="fab fa-git-alt tech-icon ti-git"></i>
-          <span>Git</span>
-        </div>
-        <div class="tech-card glass">
-          <i class="fas fa-database tech-icon ti-db"></i>
-          <span>SQL / Database</span>
-        </div>
-      </div>
-
-      <!-- Progress Bars -->
-      <div class="skills-bars" data-aos="fade-up" data-aos-delay="200">
-        <div class="skill-bar-item">
-          <div class="skill-label"><span>Python</span><span class="skill-pct">80%</span></div>
-          <div class="bar-track"><div class="bar-fill bar-python" data-width="80"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-label"><span>Java / OOP</span><span class="skill-pct">75%</span></div>
-          <div class="bar-track"><div class="bar-fill bar-java" data-width="75"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-label"><span>HTML &amp; CSS</span><span class="skill-pct">85%</span></div>
-          <div class="bar-track"><div class="bar-fill bar-html" data-width="85"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-label"><span>JavaScript</span><span class="skill-pct">65%</span></div>
-          <div class="bar-track"><div class="bar-fill bar-js" data-width="65"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-label"><span>DSA</span><span class="skill-pct">70%</span></div>
-          <div class="bar-track"><div class="bar-fill bar-dsa" data-width="70"></div></div>
-        </div>
-        <div class="skill-bar-item">
-          <div class="skill-label"><span>Operating System</span><span class="skill-pct">72%</span></div>
-          <div class="bar-track"><div class="bar-fill bar-os" data-width="72"></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== PROJECTS ========== -->
-  <section id="projects" class="section">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <span class="section-tag">// my_projects</span>
-        <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
-      </div>
-      <div class="projects-grid">
-
-        <!-- Project 1 -->
-        <article class="project-card glass" data-aos="fade-up" data-aos-delay="100">
-          <div class="project-img">
-            <div class="project-img-placeholder proj-bg-1">
-              <i class="fas fa-temperature-high"></i>
-            </div>
-            <div class="project-overlay">
-              <a href="projects/iot-monitor.html" class="btn btn-sm btn-primary" target="_blank" rel="noopener noreferrer"><i class="fas fa-eye"></i> Live Demo</a>
-              <a href="projects/iot-monitor.html" class="btn btn-sm btn-outline" target="_blank" rel="noopener noreferrer"><i class="fas fa-code"></i> App View</a>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">Python</span><span class="tag">IoT</span><span class="tag">Live System</span>
-            </div>
-            <h3>IoT Temperature Monitor</h3>
-            <p>A real-time temperature and humidity monitoring system with dynamic gauges, telemetry chart history, threshold alarms, and sensor controls.</p>
-          </div>
-        </article>
-
-        <!-- Project 2 -->
-        <article class="project-card glass" data-aos="fade-up" data-aos-delay="200">
-          <div class="project-img">
-            <div class="project-img-placeholder proj-bg-2">
-              <i class="fas fa-tasks"></i>
-            </div>
-            <div class="project-overlay">
-              <a href="projects/task-manager.html" class="btn btn-sm btn-primary" target="_blank" rel="noopener noreferrer"><i class="fas fa-eye"></i> Live Demo</a>
-              <a href="projects/task-manager.html" class="btn btn-sm btn-outline" target="_blank" rel="noopener noreferrer"><i class="fas fa-code"></i> App View</a>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span><span class="tag">Kanban</span>
-            </div>
-            <h3>Task Manager App</h3>
-            <p>A fully responsive drag-and-drop Kanban task management web application with priority tagging, overdue tracker, and local storage persistence.</p>
-          </div>
-        </article>
-
-        <!-- Project 3 -->
-        <article class="project-card glass" data-aos="fade-up" data-aos-delay="300">
-          <div class="project-img">
-            <div class="project-img-placeholder proj-bg-3">
-              <i class="fas fa-calculator"></i>
-            </div>
-            <div class="project-overlay">
-              <a href="projects/dsa-visualizer.html" class="btn btn-sm btn-primary" target="_blank" rel="noopener noreferrer"><i class="fas fa-eye"></i> Live Demo</a>
-              <a href="projects/dsa-visualizer.html" class="btn btn-sm btn-outline" target="_blank" rel="noopener noreferrer"><i class="fas fa-code"></i> App View</a>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">Python</span><span class="tag">DSA</span><span class="tag">Interactive</span>
-            </div>
-            <h3>DSA Visualizer</h3>
-            <p>An interactive visualizer featuring Bubble/Selection/Insertion/Merge/Quick sort animations, Linear & Binary searches, and live Stack/Queue memory representations.</p>
-          </div>
-        </article>
-
-        <!-- Project 4 -->
-        <article class="project-card glass" data-aos="fade-up" data-aos-delay="400">
-          <div class="project-img">
-            <div class="project-img-placeholder proj-bg-4">
-              <i class="fas fa-globe"></i>
-            </div>
-            <div class="project-overlay">
-              <a href="projects/personal-portfolio.html" class="btn btn-sm btn-primary" target="_blank" rel="noopener noreferrer"><i class="fas fa-eye"></i> Architecture</a>
-              <a href="#home" class="btn btn-sm btn-outline"><i class="fas fa-home"></i> Home View</a>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JS</span><span class="tag">Canvas</span>
-            </div>
-            <h3>Personal Portfolio</h3>
-            <p>This very portfolio website — designed with glassmorphism, particle animations, dark/light mode, live theme sandbox, and responsive layout.</p>
-          </div>
-        </article>
-
-        <!-- Project 5 -->
-        <article class="project-card glass" data-aos="fade-up" data-aos-delay="500">
-          <div class="project-img">
-            <div class="project-img-placeholder proj-bg-5">
-              <i class="fas fa-graduation-cap"></i>
-            </div>
-            <div class="project-overlay">
-              <a href="projects/student-management.html" class="btn btn-sm btn-primary" target="_blank" rel="noopener noreferrer"><i class="fas fa-eye"></i> Live Demo</a>
-              <a href="projects/student-management.html" class="btn btn-sm btn-outline" target="_blank" rel="noopener noreferrer"><i class="fas fa-code"></i> App View</a>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">Java</span><span class="tag">OOP</span><span class="tag">CRUD</span><span class="tag">CSV</span>
-            </div>
-            <h3>Student Management System</h3>
-            <p>Full student registry application with live CRUD operations, sorting, search, department filtering, GPA calculation, and CSV data export.</p>
-          </div>
-        </article>
-
-        <!-- Project 6 -->
-        <article class="project-card glass" data-aos="fade-up" data-aos-delay="600">
-          <div class="project-img">
-            <div class="project-img-placeholder proj-bg-6">
-              <i class="fas fa-shield-alt"></i>
-            </div>
-            <div class="project-overlay">
-              <a href="projects/password-generator.html" class="btn btn-sm btn-primary" target="_blank" rel="noopener noreferrer"><i class="fas fa-eye"></i> Live Demo</a>
-              <a href="projects/password-generator.html" class="btn btn-sm btn-outline" target="_blank" rel="noopener noreferrer"><i class="fas fa-code"></i> App View</a>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">Security</span><span class="tag">Crypto</span><span class="tag">Utilities</span>
-            </div>
-            <h3>Password Generator</h3>
-            <p>Cryptographically secure password generator with customizable length, entropy calculations, brute-force crack estimations, and batch generator.</p>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== EDUCATION ========== -->
-  <section id="education" class="section section-alt">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <span class="section-tag">// my_education</span>
-        <h2 class="section-title">Education &amp; <span class="gradient-text">Achievements</span></h2>
-      </div>
-      <div class="edu-timeline">
-
-        <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-dot"><i class="fas fa-university"></i></div>
-          <div class="timeline-card glass">
-            <div class="timeline-header">
-              <h3>B.Tech — Computer Science &amp; Engineering (IoT)</h3>
-              <span class="badge badge-primary">2024 – 2028</span>
-            </div>
-            <p class="timeline-org"><i class="fas fa-building"></i> GEC Banka &mdash; Bihar Engineering University</p>
-            <div class="cgpa-display">
-              <span class="cgpa-label">1st Year CGPA</span>
-              <span class="cgpa-value">6.5 / 10</span>
-              <div class="cgpa-bar"><div class="cgpa-fill cgpa-fill-65"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item" data-aos="fade-left">
-          <div class="timeline-dot"><i class="fas fa-school"></i></div>
-          <div class="timeline-card glass">
-            <div class="timeline-header">
-              <h3>12th — Science (BSEB)</h3>
-              <span class="badge badge-secondary">2024</span>
-            </div>
-            <p class="timeline-org"><i class="fas fa-building"></i> S.N.P College Sanjat, Begusarai</p>
-            <p class="timeline-score"><i class="fas fa-star"></i> 75% Marks in Science</p>
-          </div>
-        </div>
-
-        <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-dot"><i class="fas fa-book"></i></div>
-          <div class="timeline-card glass">
-            <div class="timeline-header">
-              <h3>10th — Science (BSEB)</h3>
-              <span class="badge badge-secondary">2022</span>
-            </div>
-            <p class="timeline-org"><i class="fas fa-building"></i> J.J.H.S Chhaka Sheloru, Begusarai</p>
-            <p class="timeline-score"><i class="fas fa-star"></i> 65% Marks in Science</p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Certificates -->
-      <div class="section-header mt-section" data-aos="fade-up">
-        <span class="section-tag">// certificates</span>
-        <h2 class="section-title">My <span class="gradient-text">Certificates</span></h2>
-      </div>
-      <div class="cert-grid">
-        <div class="cert-card glass" data-aos="zoom-in" data-aos-delay="100">
-          <div class="cert-icon"><i class="fas fa-award"></i></div>
-          <div class="cert-info">
-            <h4>Industrial Training &amp; Web Development</h4>
-            <p>2-Week Offline Internship Program</p>
-            <span class="cert-org">NIELIT EC Buxar &amp; NIELIT Patna</span>
-            <span class="cert-date">22-12-2025 to 04-01-2026</span>
-            <span class="cert-id">Cert No: NIELIT/BUX/012026/WDP-2/044</span>
-          </div>
-        </div>
-        <div class="cert-card glass" data-aos="zoom-in" data-aos-delay="200">
-          <div class="cert-icon"><i class="fas fa-certificate"></i></div>
-          <div class="cert-info">
-            <h4>Career Guidance Session</h4>
-            <p>Webinar Participation Certificate</p>
-            <span class="cert-org">Grad Guru Innovation (ISO Certified)</span>
-            <span class="cert-date">24-02-2026</span>
-            <span class="cert-id">Organized by Grad Guru Innovation</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== RESUME ========== -->
-  <section id="resume" class="section resume-section">
-    <div class="container">
-      <div class="resume-banner glass" data-aos="zoom-in">
-        <div class="resume-content">
-          <h2>Ready to <span class="gradient-text">Hire Me?</span></h2>
-          <p>Download my resume to learn more about my skills, experience, and education.</p>
-        </div>
-        <a href="resume.pdf" download class="btn btn-primary btn-lg">
-          <i class="fas fa-download"></i> Download Resume
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== CONTACT ========== -->
-  <section id="contact" class="section section-alt">
-    <div class="container">
-      <div class="section-header" data-aos="fade-up">
-        <span class="section-tag">// contact_me</span>
-        <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
-      </div>
-      <div class="contact-grid">
-        <!-- Info -->
-        <div class="contact-info" data-aos="fade-right">
-          <h3>Let's Work Together</h3>
-          <p>I'm open to internships, collaborations, and fresh opportunities. Feel free to drop a message and I'll get back to you as soon as possible!</p>
-          <div class="contact-cards">
-            <a href="mailto:ganeshkjibs8@gmail.com" class="contact-card glass">
-              <i class="fas fa-envelope"></i>
-              <div>
-                <span>Email</span>
-                <strong>ganeshkjibs8@gmail.com</strong>
+              <div class="avatar-info">
+                <h3>Ganesh Kumar</h3>
+                <span>CSE (IoT) Student</span>
               </div>
-            </a>
-            <a href="tel:+917764969732" class="contact-card glass">
-              <i class="fas fa-phone"></i>
-              <div>
-                <span>Phone</span>
-                <strong>+91 7764969732</strong>
-              </div>
-            </a>
-            <div class="contact-card glass">
-              <i class="fas fa-map-marker-alt"></i>
-              <div>
-                <span>Location</span>
-                <strong>Begusarai, Bihar, India</strong>
+              <div class="avatar-stats">
+                <div class="stat">
+                  <span class="stat-num">6.5</span><span>CGPA</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-num">5+</span><span>Projects</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-num">2</span><span>Certs</span>
+                </div>
               </div>
             </div>
           </div>
-          <div class="social-links">
-            <a href="https://github.com/" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="https://twitter.com/" target="_blank" rel="noopener" class="social-btn" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="https://instagram.com/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <!-- About Text -->
+          <div class="about-text" data-aos="fade-left">
+            <h3>Building Tomorrow's Tech, Today</h3>
+            <p>
+              I'm <strong>Ganesh Kumar</strong>, a passionate B.Tech student
+              specializing in
+              <strong>Computer Science &amp; Engineering (IoT)</strong> at
+              <strong>GEC Banka, Bihar Engineering University</strong>
+              (2024–2028).
+            </p>
+            <p>
+              I love writing clean, efficient code and am driven by the
+              excitement of solving real-world problems through technology. With
+              hands-on experience in
+              <strong>Python, Java, DSA, and Web Development</strong>, I'm
+              always eager to learn new skills and build impactful projects.
+            </p>
+            <p>
+              I completed an offline internship on
+              <strong>Industrial Training &amp; Web Development</strong> at
+              <strong>NIELIT EC Buxar</strong> and have participated in
+              career-guidance sessions organized by
+              <strong>Grad Guru Innovation</strong>.
+            </p>
+            <div class="about-details">
+              <div class="detail-item">
+                <i class="fas fa-map-marker-alt"></i
+                ><span
+                  >Navtol, Buchauli, Bhagwanpur, Begusarai, Bihar – 851120</span
+                >
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-phone"></i><span>+91 7764969732</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-envelope"></i
+                ><span>ganeshkjibs8@gmail.com</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-university"></i
+                ><span>GEC Banka — Bihar Engineering University</span>
+              </div>
+            </div>
+            <a href="#contact" class="btn btn-primary mt-1"
+              ><i class="fas fa-handshake"></i> Let's Connect</a
+            >
           </div>
         </div>
-        <!-- Form -->
-        <div class="contact-form-wrap" data-aos="fade-left">
-          <form id="contactForm" class="contact-form glass" novalidate>
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" placeholder="Your full name" required />
-              <span class="form-error" id="nameError"></span>
+      </div>
+    </section>
+
+    <!-- ========== SKILLS ========== -->
+    <section id="skills" class="section section-alt">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-tag">// my_skills</span>
+          <h2 class="section-title">
+            Tech <span class="gradient-text">Stack</span>
+          </h2>
+        </div>
+
+        <!-- Tech Icons -->
+        <div class="tech-grid" data-aos="fade-up" data-aos-delay="100">
+          <div class="tech-card glass">
+            <i class="fab fa-python tech-icon ti-python"></i>
+            <span>Python</span>
+          </div>
+          <div class="tech-card glass">
+            <i class="fab fa-java tech-icon ti-java"></i>
+            <span>Java / OOP</span>
+          </div>
+          <div class="tech-card glass">
+            <i class="fab fa-html5 tech-icon ti-html"></i>
+            <span>HTML5</span>
+          </div>
+          <div class="tech-card glass">
+            <i class="fab fa-css3-alt tech-icon ti-css"></i>
+            <span>CSS3</span>
+          </div>
+          <div class="tech-card glass">
+            <i class="fab fa-js-square tech-icon ti-js"></i>
+            <span>JavaScript</span>
+          </div>
+          <div class="tech-card glass">
+            <i class="fas fa-sitemap tech-icon ti-dsa"></i>
+            <span>DSA</span>
+          </div>
+          <div class="tech-card glass">
+            <i class="fas fa-microchip tech-icon ti-os"></i>
+            <span>Operating System</span>
+          </div>
+          <div class="tech-card glass">
+            <i class="fas fa-network-wired tech-icon ti-net"></i>
+            <span>Computer Networks</span>
+          </div>
+          <div class="tech-card glass">
+            <i class="fab fa-git-alt tech-icon ti-git"></i>
+            <span>Git</span>
+          </div>
+          <div class="tech-card glass">
+            <i class="fas fa-database tech-icon ti-db"></i>
+            <span>SQL / Database</span>
+          </div>
+        </div>
+
+        <!-- Progress Bars -->
+        <div class="skills-bars" data-aos="fade-up" data-aos-delay="200">
+          <div class="skill-bar-item">
+            <div class="skill-label">
+              <span>Python</span><span class="skill-pct">80%</span>
             </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="your.email@example.com" required />
-              <span class="form-error" id="emailError"></span>
+            <div class="bar-track">
+              <div class="bar-fill bar-python" data-width="80"></div>
             </div>
-            <div class="form-group">
-              <label for="subject">Subject</label>
-              <input type="text" id="subject" name="subject" placeholder="Message subject" required />
-              <span class="form-error" id="subjectError"></span>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-label">
+              <span>Java / OOP</span><span class="skill-pct">75%</span>
             </div>
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
-              <span class="form-error" id="messageError"></span>
+            <div class="bar-track">
+              <div class="bar-fill bar-java" data-width="75"></div>
             </div>
-            <button type="submit" class="btn btn-primary btn-full">
-              <i class="fas fa-paper-plane"></i> Send Message
-            </button>
-            <div id="formSuccess" class="form-success hidden">
-              <i class="fas fa-check-circle"></i> Your message has been sent!
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-label">
+              <span>HTML &amp; CSS</span><span class="skill-pct">85%</span>
             </div>
-          </form>
+            <div class="bar-track">
+              <div class="bar-fill bar-html" data-width="85"></div>
+            </div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-label">
+              <span>JavaScript</span><span class="skill-pct">65%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill bar-js" data-width="65"></div>
+            </div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-label">
+              <span>DSA</span><span class="skill-pct">70%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill bar-dsa" data-width="70"></div>
+            </div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-label">
+              <span>Operating System</span><span class="skill-pct">72%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill bar-os" data-width="72"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <p class="footer-logo"><span class="logo-bracket">&lt;</span>GK<span class="logo-bracket">/&gt;</span></p>
-      <p>Crafted with <span class="heart">❤️</span> by <strong>Ganesh Kumar</strong> &copy; 2026</p>
-      <p class="footer-tagline">B.Tech CSE (IoT) | GEC Banka</p>
-    </div>
-  </footer>
+    <!-- ========== PROJECTS ========== -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-tag">// my_projects</span>
+          <h2 class="section-title">
+            Featured <span class="gradient-text">Projects</span>
+          </h2>
+        </div>
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <article
+            class="project-card glass"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="project-img">
+              <div class="project-img-placeholder proj-bg-1">
+                <i class="fas fa-temperature-high"></i>
+              </div>
+              <div class="project-overlay">
+                <a
+                  href="projects/iot-monitor.html"
+                  class="btn btn-sm btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fas fa-eye"></i> Live Demo</a
+                >
+                <a
+                  href="projects/iot-monitor.html"
+                  class="btn btn-sm btn-outline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fas fa-code"></i> App View</a
+                >
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">Python</span><span class="tag">IoT</span
+                ><span class="tag">Live System</span>
+              </div>
+              <h3>IoT Temperature Monitor</h3>
+              <p>
+                A real-time temperature and humidity monitoring system with
+                dynamic gauges, telemetry chart history, threshold alarms, and
+                sensor controls.
+              </p>
+            </div>
+          </article>
 
-  <!-- Back to Top -->
-  <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+          <!-- Project 2 -->
+          <article
+            class="project-card glass"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="project-img">
+              <div class="project-img-placeholder proj-bg-2">
+                <i class="fas fa-tasks"></i>
+              </div>
+              <div class="project-overlay">
+                <a
+                  href="projects/task-manager.html"
+                  class="btn btn-sm btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fas fa-eye"></i> Live Demo</a
+                >
+                <a
+                  href="projects/task-manager.html"
+                  class="btn btn-sm btn-outline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fas fa-code"></i> App View</a
+                >
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">HTML</span><span class="tag">CSS</span
+                ><span class="tag">JS</span><span class="tag">Kanban</span>
+              </div>
+              <h3>Task Manager App</h3>
+              <p>
+                A fully responsive drag-and-drop Kanban task management web
+                application with priority tagging, overdue tracker, and local
+                storage persistence.
+              </p>
+            </div>
+          </article>
 
-  <script>
-    // Add js-enabled class so CSS AOS animations work safely
-    document.documentElement.classList.add('js-ready');
-    document.body.classList.add('js-enabled');
-  </script>
-  <script src="script.js"></script>
-</body>
+          <!-- Project 3 -->
+          <article
+            class="project-card glass"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div class="project-img">
+              <div class="project-img-placeholder proj-bg-3">
+                <i class="fas fa-calculator"></i>
+              </div>
+              <div class="project-overlay">
+                <a
+                  href="projects/dsa-visualizer.html"
+                  class="btn btn-sm btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fas fa-eye"></i> Live Demo</a
+                >
+                <a
+                  href="projects/dsa-visualizer.html"
+                  class="btn btn-sm btn-outline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fas fa-code"></i> App View</a
+                >
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">Python</span><span class="tag">DSA</span
+                ><span class="tag">Interactive</span>
+              </div>
+              <h3>DSA Visualizer</h3>
+              <p>
+                An interactive visualizer featuring
+                Bubble/Selection/Insertion/Merge/Quick sort animations, Linear &
+                Binary searches, and live Stack/Queue memory representations.
+              </p>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article
+            class="project-card glass"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <div class="project-img">
+              <div class="project-img-placeholder proj-bg-4">
+                <i class="fas fa-globe"></i>
+              </div>
+              <div class="project-overlay">
+                <a
+                  href="projects/personal-portfolio.html"
+                  class="btn btn-sm btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fas fa-eye"></i> Architecture</a
+                >
+                <a href="#home" class="btn btn-sm btn-outline"
+                  ><i class="fas fa-home"></i> Home View</a
+                >
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">HTML5</span><span class="tag">CSS3</span
+                ><span class="tag">JS</span><span class="tag">Canvas</span>
+              </div>
+              <h3>Personal Portfolio</h3>
+              <p>
+                This very portfolio website — designed with glassmorphism,
+                particle animations, dark/light mode, live theme sandbox, and
+                responsive layout.
+              </p>
+            </div>
+          </article>
+
+          <!-- Project 5 -->
+          <article
+            class="project-card glass"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
+            <div class="project-img">
+              <div class="project-img-placeholder proj-bg-5">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <div class="project-overlay">
+                <a
+                  href="projects/student-management.html"
+                  class="btn btn-sm btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fas fa-eye"></i> Live Demo</a
+                >
+                <a
+                  href="projects/student-management.html"
+                  class="btn btn-sm btn-outline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fas fa-code"></i> App View</a
+                >
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">Java</span><span class="tag">OOP</span
+                ><span class="tag">CRUD</span><span class="tag">CSV</span>
+              </div>
+              <h3>Student Management System</h3>
+              <p>
+                Full student registry application with live CRUD operations,
+                sorting, search, department filtering, GPA calculation, and CSV
+                data export.
+              </p>
+            </div>
+          </article>
+
+          <!-- Project 6 -->
+          <article
+            class="project-card glass"
+            data-aos="fade-up"
+            data-aos-delay="600"
+          >
+            <div class="project-img">
+              <div class="project-img-placeholder proj-bg-6">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <div class="project-overlay">
+                <a
+                  href="projects/password-generator.html"
+                  class="btn btn-sm btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fas fa-eye"></i> Live Demo</a
+                >
+                <a
+                  href="projects/password-generator.html"
+                  class="btn btn-sm btn-outline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fas fa-code"></i> App View</a
+                >
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">Security</span><span class="tag">Crypto</span
+                ><span class="tag">Utilities</span>
+              </div>
+              <h3>Password Generator</h3>
+              <p>
+                Cryptographically secure password generator with customizable
+                length, entropy calculations, brute-force crack estimations, and
+                batch generator.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== EDUCATION ========== -->
+    <section id="education" class="section section-alt">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-tag">// my_education</span>
+          <h2 class="section-title">
+            Education &amp; <span class="gradient-text">Achievements</span>
+          </h2>
+        </div>
+        <div class="edu-timeline">
+          <div class="timeline-item" data-aos="fade-right">
+            <div class="timeline-dot"><i class="fas fa-university"></i></div>
+            <div class="timeline-card glass">
+              <div class="timeline-header">
+                <h3>B.Tech — Computer Science &amp; Engineering (IoT)</h3>
+                <span class="badge badge-primary">2024 – 2028</span>
+              </div>
+              <p class="timeline-org">
+                <i class="fas fa-building"></i> GEC Banka &mdash; Bihar
+                Engineering University
+              </p>
+              <div class="cgpa-display">
+                <span class="cgpa-label">1st Year CGPA</span>
+                <span class="cgpa-value">6.5 / 10</span>
+                <div class="cgpa-bar">
+                  <div class="cgpa-fill cgpa-fill-65"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item" data-aos="fade-left">
+            <div class="timeline-dot"><i class="fas fa-school"></i></div>
+            <div class="timeline-card glass">
+              <div class="timeline-header">
+                <h3>12th — Science (BSEB)</h3>
+                <span class="badge badge-secondary">2024</span>
+              </div>
+              <p class="timeline-org">
+                <i class="fas fa-building"></i> S.N.P College Sanjat, Begusarai
+              </p>
+              <p class="timeline-score">
+                <i class="fas fa-star"></i> 75% Marks in Science
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item" data-aos="fade-right">
+            <div class="timeline-dot"><i class="fas fa-book"></i></div>
+            <div class="timeline-card glass">
+              <div class="timeline-header">
+                <h3>10th — Science (BSEB)</h3>
+                <span class="badge badge-secondary">2022</span>
+              </div>
+              <p class="timeline-org">
+                <i class="fas fa-building"></i> J.J.H.S Chhaka Sheloru,
+                Begusarai
+              </p>
+              <p class="timeline-score">
+                <i class="fas fa-star"></i> 65% Marks in Science
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certificates -->
+        <div class="section-header mt-section" data-aos="fade-up">
+          <span class="section-tag">// certificates</span>
+          <h2 class="section-title">
+            My <span class="gradient-text">Certificates</span>
+          </h2>
+        </div>
+        <div class="cert-grid">
+          <div class="cert-card glass" data-aos="zoom-in" data-aos-delay="100">
+            <div class="cert-icon"><i class="fas fa-award"></i></div>
+            <div class="cert-info">
+              <h4>Industrial Training &amp; Web Development</h4>
+              <p>2-Week Offline Internship Program</p>
+              <span class="cert-org">NIELIT EC Buxar &amp; NIELIT Patna</span>
+              <span class="cert-date">22-12-2025 to 04-01-2026</span>
+              <span class="cert-id">Cert No: NIELIT/BUX/012026/WDP-2/044</span>
+            </div>
+          </div>
+          <div class="cert-card glass" data-aos="zoom-in" data-aos-delay="200">
+            <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+            <div class="cert-info">
+              <h4>Career Guidance Session</h4>
+              <p>Webinar Participation Certificate</p>
+              <span class="cert-org">Grad Guru Innovation (ISO Certified)</span>
+              <span class="cert-date">24-02-2026</span>
+              <span class="cert-id">Organized by Grad Guru Innovation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== RESUME ========== -->
+    <section id="resume" class="section resume-section">
+      <div class="container">
+        <div class="resume-banner glass" data-aos="zoom-in">
+          <div class="resume-content">
+            <h2>Ready to <span class="gradient-text">Hire Me?</span></h2>
+            <p>
+              Download my resume to learn more about my skills, experience, and
+              education.
+            </p>
+          </div>
+          <a href="resume.pdf" download class="btn btn-primary btn-lg">
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section id="contact" class="section section-alt">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-tag">// contact_me</span>
+          <h2 class="section-title">
+            Get In <span class="gradient-text">Touch</span>
+          </h2>
+        </div>
+        <div class="contact-grid">
+          <!-- Info -->
+          <div class="contact-info" data-aos="fade-right">
+            <h3>Let's Work Together</h3>
+            <p>
+              I'm open to internships, collaborations, and fresh opportunities.
+              Feel free to drop a message and I'll get back to you as soon as
+              possible!
+            </p>
+            <div class="contact-cards">
+              <a
+                href="mailto:ganeshkjibs8@gmail.com"
+                class="contact-card glass"
+              >
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <span>Email</span>
+                  <strong>ganeshkjibs8@gmail.com</strong>
+                </div>
+              </a>
+              <a href="tel:+917764969732" class="contact-card glass">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <span>Phone</span>
+                  <strong>+91 7764969732</strong>
+                </div>
+              </a>
+              <div class="contact-card glass">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <span>Location</span>
+                  <strong>Begusarai, Bihar, India</strong>
+                </div>
+              </div>
+            </div>
+            <div class="social-links">
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noopener"
+                class="social-btn"
+                aria-label="GitHub"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a
+                href="https://linkedin.com/"
+                target="_blank"
+                rel="noopener"
+                class="social-btn"
+                aria-label="LinkedIn"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                rel="noopener"
+                class="social-btn"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                rel="noopener"
+                class="social-btn"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
+          </div>
+          <!-- Form -->
+          <div class="contact-form-wrap" data-aos="fade-left">
+            <form id="contactForm" class="contact-form glass" novalidate>
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Your full name"
+                  required
+                />
+                <span class="form-error" id="nameError"></span>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="your.email@example.com"
+                  required
+                />
+                <span class="form-error" id="emailError"></span>
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  placeholder="Message subject"
+                  required
+                />
+                <span class="form-error" id="subjectError"></span>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  placeholder="Write your message here..."
+                  required
+                ></textarea>
+                <span class="form-error" id="messageError"></span>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">
+                <i class="fas fa-paper-plane"></i> Send Message
+              </button>
+              <div id="formSuccess" class="form-success hidden">
+                <i class="fas fa-check-circle"></i> Your message has been sent!
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p class="footer-logo">
+          <span class="logo-bracket">&lt;</span>GK<span class="logo-bracket"
+            >/&gt;</span
+          >
+        </p>
+        <p>
+          Crafted with <span class="heart">❤️</span> by
+          <strong>Ganesh Kumar</strong> &copy; 2026
+        </p>
+        <p class="footer-tagline">B.Tech CSE (IoT) | GEC Banka</p>
+      </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" aria-label="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+      // Add js-enabled class so CSS AOS animations work safely
+      document.documentElement.classList.add("js-ready");
+      document.body.classList.add("js-enabled");
+    </script>
+    <script src="script.js"></script>
+  </body>
 </html>

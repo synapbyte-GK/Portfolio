@@ -1,484 +1,598 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portfolio Design System & Architecture | Ganesh Kumar</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  <style>
-    :root {
-      --bg: #0a0a0f;
-      --card: rgba(255, 255, 255, 0.04);
-      --border: rgba(255, 255, 255, 0.08);
-      --primary: #7c3aed;
-      --cyan: #06b6d4;
-      --pink: #f472b6;
-      --text: #f1f5f9;
-      --sub: #94a3b8;
-      --muted: #64748b;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      background: rgba(10, 10, 15, 0.9);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      -webkit-backdrop-filter: blur(20px);
-      backdrop-filter: blur(20px);
-    }
-    .logo {
-      font-family: 'Fira Code', monospace;
-      font-size: 1.1rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #a78bfa, #38bdf8);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .back-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--sub);
-      font-size: 0.85rem;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .back-btn:hover { color: #38bdf8; }
-
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem;
-      width: 100%;
-      flex: 1;
-    }
-    .hero-banner {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-    .hero-banner h1 {
-      font-size: 2.3rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #fff, #94a3b8);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-banner p {
-      color: var(--sub);
-      font-size: 1rem;
-      max-width: 650px;
-      margin: 0 auto 1.5rem;
-    }
-    .banner-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.7rem 1.5rem;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.25s;
-      border: none;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--cyan));
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
-    }
-    .btn-outline {
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-    .btn-outline:hover {
-      border-color: var(--cyan);
-      color: var(--cyan);
-    }
-
-    /* Architecture Grid */
-    .arch-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-    }
-    .arch-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .arch-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--cyan));
-    }
-    .arch-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.8rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .arch-card p {
-      color: var(--sub);
-      font-size: 0.85rem;
-      line-height: 1.6;
-    }
-    .pill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    .pill {
-      font-size: 0.74rem;
-      font-family: 'Fira Code', monospace;
-      padding: 0.25rem 0.6rem;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      color: #38bdf8;
-    }
-
-    /* Live Studio Section */
-    .studio-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 2rem;
-      margin-bottom: 3rem;
-    }
-    .studio-box h2 {
-      font-size: 1.4rem;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .studio-subtitle {
-      color: var(--sub);
-      font-size: 0.88rem;
-      margin-bottom: 1.8rem;
-    }
-
-    .studio-controls {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-      background: rgba(0, 0, 0, 0.25);
-      padding: 1.5rem;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-    }
-    .studio-ctrl {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .studio-ctrl label {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--sub);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .studio-ctrl select, .studio-ctrl input[type="range"] {
-      width: 100%;
-    }
-    .studio-ctrl select {
-      background: #11111c;
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.5rem;
-      border-radius: 8px;
-      outline: none;
-    }
-
-    .icon-violet { color: #a78bfa; }
-    .icon-cyan { color: #38bdf8; }
-    .icon-green { color: #34d399; }
-    .audit-section { margin-bottom: 3rem; }
-    .audit-heading { font-size: 1.1rem; margin-bottom: 1rem; color: var(--sub); }
-    .sample-title-mt { margin-top: 0.6rem; }
-    .sample-desc { color: var(--sub); font-size: 0.85rem; max-width: 400px; }
-    .sample-card-heading { margin-bottom: 0.4rem; color: var(--text); }
-    .sample-icon { color: #38bdf8; margin-right: 0.4rem; }
-    .sample-text { color: var(--sub); font-size: 0.82rem; line-height: 1.5; }
-    .preview-btn-styled { margin-top: 1rem; padding: 0.45rem 1rem; font-size: 0.8rem; }
-
-    /* Live Preview Area */
-    .preview-canvas {
-      padding: 2.5rem 2rem;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.02);
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .preview-hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-    .sample-glass-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      -webkit-backdrop-filter: blur(15px);
-      backdrop-filter: blur(15px);
-      padding: 1.5rem;
-      border-radius: 14px;
-      max-width: 480px;
-    }
-    .sample-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-    }
-
-    /* Metrics Grid */
-    .metrics-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-    }
-    .metric-item {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
-    }
-    .metric-score {
-      font-size: 1.8rem;
-      font-weight: 800;
-      font-family: 'Fira Code', monospace;
-      color: #10b981;
-    }
-    .metric-name {
-      font-size: 0.75rem;
-      color: var(--sub);
-      text-transform: uppercase;
-      margin-top: 0.2rem;
-    }
-
-    @media (max-width: 768px) {
-      .arch-grid { grid-template-columns: 1fr; }
-      .metrics-row { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <div class="logo">
-      <i class="fas fa-layer-group"></i>
-      <span>Portfolio Architecture</span>
-    </div>
-    <a href="../index.html" class="back-btn">
-      <i class="fas fa-arrow-left"></i>
-      <span>Back to Portfolio</span>
-    </a>
-  </header>
-
-  <main>
-    <div class="hero-banner">
-      <h1>Personal Portfolio System Architecture</h1>
-      <p>Deep-dive into the glassmorphic design system, CSS token hierarchy, dynamic particle canvas, and interactive performance optimizations.</p>
-      <div class="banner-actions">
-        <a href="../index.html" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> Visit Live Portfolio</a>
-        <a href="#studio" class="btn btn-outline"><i class="fas fa-palette"></i> Explore Theme Studio</a>
-      </div>
-    </div>
-
-    <!-- 3 Pillars Grid -->
-    <div class="arch-grid">
-      <div class="arch-card">
-        <h3><i class="fas fa-palette icon-violet"></i> Glassmorphism Engine</h3>
-        <p>Built using multi-layered backdrop filters with fallbacks for WebKit and Firefox, calibrated frosted translucent surfaces, and subtle radial gradient borders.</p>
-        <div class="pill-list">
-          <span class="pill">backdrop-filter</span>
-          <span class="pill">box-shadow</span>
-          <span class="pill">CSS Custom Properties</span>
-        </div>
-      </div>
-      <div class="arch-card">
-        <h3><i class="fas fa-atom icon-cyan"></i> Interactive Canvas</h3>
-        <p>A 60fps lightweight particle network engine rendered via HTML5 2D Canvas. Dynamically computes Euclidean distances to render interactive spring connection lines on mouse hover.</p>
-        <div class="pill-list">
-          <span class="pill">requestAnimationFrame</span>
-          <span class="pill">Vector Geometry</span>
-          <span class="pill">Passive Listeners</span>
-        </div>
-      </div>
-      <div class="arch-card">
-        <h3><i class="fas fa-tachometer-alt icon-green"></i> Ultra Performance</h3>
-        <p>Zero heavy frameworks required. Pure vanilla JavaScript, hardware-accelerated CSS transforms, deferred non-critical assets, and 100/100 Lighthouse performance scores.</p>
-        <div class="pill-list">
-          <span class="pill">Vanilla JS</span>
-          <span class="pill">Zero Bloat</span>
-          <span class="pill">Sub-50ms FID</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Performance Audit Scores -->
-    <div class="audit-section">
-      <h3 class="audit-heading">Lighthouse Performance Audit</h3>
-      <div class="metrics-row">
-        <div class="metric-item">
-          <div class="metric-score">99</div>
-          <div class="metric-name">Performance</div>
-        </div>
-        <div class="metric-item">
-          <div class="metric-score">100</div>
-          <div class="metric-name">Accessibility</div>
-        </div>
-        <div class="metric-item">
-          <div class="metric-score">100</div>
-          <div class="metric-name">Best Practices</div>
-        </div>
-        <div class="metric-item">
-          <div class="metric-score">100</div>
-          <div class="metric-name">SEO Score</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Theme Studio Section -->
-    <div class="studio-box" id="studio">
-      <h2><i class="fas fa-sliders-h icon-cyan"></i> Interactive Design System Sandbox</h2>
-      <p class="studio-subtitle">Adjust the design tokens below to preview how the portfolio's glass surfaces and accent gradients adapt in real time.</p>
-
-      <div class="studio-controls">
-        <div class="studio-ctrl">
-          <label for="themeAccentSelect">Accent Theme</label>
-          <select id="themeAccentSelect" title="Select Accent Theme">
-            <option value="violet-cyan">Cosmic Violet & Cyan (Default)</option>
-            <option value="emerald-teal">Cyber Emerald & Teal</option>
-            <option value="rose-amber">Sunset Rose & Amber</option>
-            <option value="crimson-ruby">Crimson Red & Ruby</option>
-          </select>
-        </div>
-        <div class="studio-ctrl">
-          <label for="opacitySlider">Glass Surface Opacity</label>
-          <input type="range" id="opacitySlider" min="2" max="20" value="6" title="Glass Surface Opacity" placeholder="6"/>
-        </div>
-        <div class="studio-ctrl">
-          <label for="blurSlider">Backdrop Blur Radius</label>
-          <input type="range" id="blurSlider" min="5" max="30" value="16" title="Backdrop Blur Radius" placeholder="16"/>
-        </div>
-      </div>
-
-      <!-- Preview Canvas -->
-      <div class="preview-canvas" id="previewCanvas">
-        <div class="preview-hero">
-          <div>
-            <span class="pill" id="previewPill">// real_time_preview</span>
-            <h3 class="sample-title sample-title-mt">Dynamic Glass Card Preview</h3>
-            <p class="sample-desc">This element reflects the exact CSS custom properties that power every component of the portfolio.</p>
-          </div>
-          <div class="sample-glass-card" id="sampleCard">
-            <h4 class="sample-card-heading"><i class="fas fa-code-branch sample-icon"></i> Component Architecture</h4>
-            <p class="sample-text">Notice how the backdrop blur and tinted reflections automatically recalibrate.</p>
-            <button class="btn btn-primary preview-btn-styled" id="previewBtn">Interactive Button</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <script>
-    const themes = {
-      'violet-cyan': {
-        gradient: 'linear-gradient(135deg, #7c3aed, #06b6d4)',
-        glow: 'rgba(124, 58, 237, 0.4)',
-        pillColor: '#38bdf8'
-      },
-      'emerald-teal': {
-        gradient: 'linear-gradient(135deg, #10b981, #06b6d4)',
-        glow: 'rgba(16, 185, 129, 0.4)',
-        pillColor: '#34d399'
-      },
-      'rose-amber': {
-        gradient: 'linear-gradient(135deg, #f43f5e, #f59e0b)',
-        glow: 'rgba(244, 63, 94, 0.4)',
-        pillColor: '#fb7185'
-      },
-      'crimson-ruby': {
-        gradient: 'linear-gradient(135deg, #ef4444, #8b5cf6)',
-        glow: 'rgba(239, 68, 68, 0.4)',
-        pillColor: '#f87171'
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Design System & Architecture | Ganesh Kumar</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      :root {
+        --bg: #0a0a0f;
+        --card: rgba(255, 255, 255, 0.04);
+        --border: rgba(255, 255, 255, 0.08);
+        --primary: #7c3aed;
+        --cyan: #06b6d4;
+        --pink: #f472b6;
+        --text: #f1f5f9;
+        --sub: #94a3b8;
+        --muted: #64748b;
       }
-    };
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        background: rgba(10, 10, 15, 0.9);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+      }
+      .logo {
+        font-family: "Fira Code", monospace;
+        font-size: 1.1rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #a78bfa, #38bdf8);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--sub);
+        font-size: 0.85rem;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .back-btn:hover {
+        color: #38bdf8;
+      }
 
-    const accentSelect = document.getElementById('themeAccentSelect');
-    const opacitySlider = document.getElementById('opacitySlider');
-    const blurSlider = document.getElementById('blurSlider');
-    const sampleCard = document.getElementById('sampleCard');
-    const previewBtn = document.getElementById('previewBtn');
-    const previewPill = document.getElementById('previewPill');
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2.5rem 1.5rem;
+        width: 100%;
+        flex: 1;
+      }
+      .hero-banner {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+      .hero-banner h1 {
+        font-size: 2.3rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, #fff, #94a3b8);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hero-banner p {
+        color: var(--sub);
+        font-size: 1rem;
+        max-width: 650px;
+        margin: 0 auto 1.5rem;
+      }
+      .banner-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.7rem 1.5rem;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        font-family: "Inter", sans-serif;
+        transition: all 0.25s;
+        border: none;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--cyan));
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
+      }
+      .btn-outline {
+        background: var(--card);
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+      .btn-outline:hover {
+        border-color: var(--cyan);
+        color: var(--cyan);
+      }
 
-    function updatePreview() {
-      const themeKey = accentSelect.value;
-      const theme = themes[themeKey];
-      const opacity = (opacitySlider.value / 100).toFixed(2);
-      const blur = blurSlider.value + 'px';
+      /* Architecture Grid */
+      .arch-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+      .arch-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .arch-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), var(--cyan));
+      }
+      .arch-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .arch-card p {
+        color: var(--sub);
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+      .pill-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      .pill {
+        font-size: 0.74rem;
+        font-family: "Fira Code", monospace;
+        padding: 0.25rem 0.6rem;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        color: #38bdf8;
+      }
 
-      sampleCard.style.background = `rgba(255, 255, 255, ${opacity})`;
-      sampleCard.style.backdropFilter = `blur(${blur})`;
-      sampleCard.style.webkitBackdropFilter = `blur(${blur})`;
+      /* Live Studio Section */
+      .studio-box {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+      }
+      .studio-box h2 {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .studio-subtitle {
+        color: var(--sub);
+        font-size: 0.88rem;
+        margin-bottom: 1.8rem;
+      }
 
-      previewBtn.style.background = theme.gradient;
-      previewBtn.style.boxShadow = `0 4px 15px ${theme.glow}`;
-      previewPill.style.color = theme.pillColor;
-    }
+      .studio-controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 1.5rem;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+      }
+      .studio-ctrl {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .studio-ctrl label {
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--sub);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .studio-ctrl select,
+      .studio-ctrl input[type="range"] {
+        width: 100%;
+      }
+      .studio-ctrl select {
+        background: #11111c;
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 0.5rem;
+        border-radius: 8px;
+        outline: none;
+      }
 
-    accentSelect.addEventListener('change', updatePreview);
-    opacitySlider.addEventListener('input', updatePreview);
-    blurSlider.addEventListener('input', updatePreview);
-    updatePreview();
-  </script>
-</body>
+      .icon-violet {
+        color: #a78bfa;
+      }
+      .icon-cyan {
+        color: #38bdf8;
+      }
+      .icon-green {
+        color: #34d399;
+      }
+      .audit-section {
+        margin-bottom: 3rem;
+      }
+      .audit-heading {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: var(--sub);
+      }
+      .sample-title-mt {
+        margin-top: 0.6rem;
+      }
+      .sample-desc {
+        color: var(--sub);
+        font-size: 0.85rem;
+        max-width: 400px;
+      }
+      .sample-card-heading {
+        margin-bottom: 0.4rem;
+        color: var(--text);
+      }
+      .sample-icon {
+        color: #38bdf8;
+        margin-right: 0.4rem;
+      }
+      .sample-text {
+        color: var(--sub);
+        font-size: 0.82rem;
+        line-height: 1.5;
+      }
+      .preview-btn-styled {
+        margin-top: 1rem;
+        padding: 0.45rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      /* Live Preview Area */
+      .preview-canvas {
+        padding: 2.5rem 2rem;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.02);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .preview-hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+      }
+      .sample-glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        -webkit-backdrop-filter: blur(15px);
+        backdrop-filter: blur(15px);
+        padding: 1.5rem;
+        border-radius: 14px;
+        max-width: 480px;
+      }
+      .sample-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+      }
+
+      /* Metrics Grid */
+      .metrics-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+      }
+      .metric-item {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+      }
+      .metric-score {
+        font-size: 1.8rem;
+        font-weight: 800;
+        font-family: "Fira Code", monospace;
+        color: #10b981;
+      }
+      .metric-name {
+        font-size: 0.75rem;
+        color: var(--sub);
+        text-transform: uppercase;
+        margin-top: 0.2rem;
+      }
+
+      @media (max-width: 768px) {
+        .arch-grid {
+          grid-template-columns: 1fr;
+        }
+        .metrics-row {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <i class="fas fa-layer-group"></i>
+        <span>Portfolio Architecture</span>
+      </div>
+      <a href="../index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Portfolio</span>
+      </a>
+    </header>
+
+    <main>
+      <div class="hero-banner">
+        <h1>Personal Portfolio System Architecture</h1>
+        <p>
+          Deep-dive into the glassmorphic design system, CSS token hierarchy,
+          dynamic particle canvas, and interactive performance optimizations.
+        </p>
+        <div class="banner-actions">
+          <a href="../index.html" class="btn btn-primary"
+            ><i class="fas fa-external-link-alt"></i> Visit Live Portfolio</a
+          >
+          <a href="#studio" class="btn btn-outline"
+            ><i class="fas fa-palette"></i> Explore Theme Studio</a
+          >
+        </div>
+      </div>
+
+      <!-- 3 Pillars Grid -->
+      <div class="arch-grid">
+        <div class="arch-card">
+          <h3>
+            <i class="fas fa-palette icon-violet"></i> Glassmorphism Engine
+          </h3>
+          <p>
+            Built using multi-layered backdrop filters with fallbacks for WebKit
+            and Firefox, calibrated frosted translucent surfaces, and subtle
+            radial gradient borders.
+          </p>
+          <div class="pill-list">
+            <span class="pill">backdrop-filter</span>
+            <span class="pill">box-shadow</span>
+            <span class="pill">CSS Custom Properties</span>
+          </div>
+        </div>
+        <div class="arch-card">
+          <h3><i class="fas fa-atom icon-cyan"></i> Interactive Canvas</h3>
+          <p>
+            A 60fps lightweight particle network engine rendered via HTML5 2D
+            Canvas. Dynamically computes Euclidean distances to render
+            interactive spring connection lines on mouse hover.
+          </p>
+          <div class="pill-list">
+            <span class="pill">requestAnimationFrame</span>
+            <span class="pill">Vector Geometry</span>
+            <span class="pill">Passive Listeners</span>
+          </div>
+        </div>
+        <div class="arch-card">
+          <h3>
+            <i class="fas fa-tachometer-alt icon-green"></i> Ultra Performance
+          </h3>
+          <p>
+            Zero heavy frameworks required. Pure vanilla JavaScript,
+            hardware-accelerated CSS transforms, deferred non-critical assets,
+            and 100/100 Lighthouse performance scores.
+          </p>
+          <div class="pill-list">
+            <span class="pill">Vanilla JS</span>
+            <span class="pill">Zero Bloat</span>
+            <span class="pill">Sub-50ms FID</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance Audit Scores -->
+      <div class="audit-section">
+        <h3 class="audit-heading">Lighthouse Performance Audit</h3>
+        <div class="metrics-row">
+          <div class="metric-item">
+            <div class="metric-score">99</div>
+            <div class="metric-name">Performance</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-score">100</div>
+            <div class="metric-name">Accessibility</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-score">100</div>
+            <div class="metric-name">Best Practices</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-score">100</div>
+            <div class="metric-name">SEO Score</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Theme Studio Section -->
+      <div class="studio-box" id="studio">
+        <h2>
+          <i class="fas fa-sliders-h icon-cyan"></i> Interactive Design System
+          Sandbox
+        </h2>
+        <p class="studio-subtitle">
+          Adjust the design tokens below to preview how the portfolio's glass
+          surfaces and accent gradients adapt in real time.
+        </p>
+
+        <div class="studio-controls">
+          <div class="studio-ctrl">
+            <label for="themeAccentSelect">Accent Theme</label>
+            <select id="themeAccentSelect" title="Select Accent Theme">
+              <option value="violet-cyan">
+                Cosmic Violet & Cyan (Default)
+              </option>
+              <option value="emerald-teal">Cyber Emerald & Teal</option>
+              <option value="rose-amber">Sunset Rose & Amber</option>
+              <option value="crimson-ruby">Crimson Red & Ruby</option>
+            </select>
+          </div>
+          <div class="studio-ctrl">
+            <label for="opacitySlider">Glass Surface Opacity</label>
+            <input
+              type="range"
+              id="opacitySlider"
+              min="2"
+              max="20"
+              value="6"
+              title="Glass Surface Opacity"
+              placeholder="6"
+            />
+          </div>
+          <div class="studio-ctrl">
+            <label for="blurSlider">Backdrop Blur Radius</label>
+            <input
+              type="range"
+              id="blurSlider"
+              min="5"
+              max="30"
+              value="16"
+              title="Backdrop Blur Radius"
+              placeholder="16"
+            />
+          </div>
+        </div>
+
+        <!-- Preview Canvas -->
+        <div class="preview-canvas" id="previewCanvas">
+          <div class="preview-hero">
+            <div>
+              <span class="pill" id="previewPill">// real_time_preview</span>
+              <h3 class="sample-title sample-title-mt">
+                Dynamic Glass Card Preview
+              </h3>
+              <p class="sample-desc">
+                This element reflects the exact CSS custom properties that power
+                every component of the portfolio.
+              </p>
+            </div>
+            <div class="sample-glass-card" id="sampleCard">
+              <h4 class="sample-card-heading">
+                <i class="fas fa-code-branch sample-icon"></i> Component
+                Architecture
+              </h4>
+              <p class="sample-text">
+                Notice how the backdrop blur and tinted reflections
+                automatically recalibrate.
+              </p>
+              <button
+                class="btn btn-primary preview-btn-styled"
+                id="previewBtn"
+              >
+                Interactive Button
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const themes = {
+        "violet-cyan": {
+          gradient: "linear-gradient(135deg, #7c3aed, #06b6d4)",
+          glow: "rgba(124, 58, 237, 0.4)",
+          pillColor: "#38bdf8",
+        },
+        "emerald-teal": {
+          gradient: "linear-gradient(135deg, #10b981, #06b6d4)",
+          glow: "rgba(16, 185, 129, 0.4)",
+          pillColor: "#34d399",
+        },
+        "rose-amber": {
+          gradient: "linear-gradient(135deg, #f43f5e, #f59e0b)",
+          glow: "rgba(244, 63, 94, 0.4)",
+          pillColor: "#fb7185",
+        },
+        "crimson-ruby": {
+          gradient: "linear-gradient(135deg, #ef4444, #8b5cf6)",
+          glow: "rgba(239, 68, 68, 0.4)",
+          pillColor: "#f87171",
+        },
+      };
+
+      const accentSelect = document.getElementById("themeAccentSelect");
+      const opacitySlider = document.getElementById("opacitySlider");
+      const blurSlider = document.getElementById("blurSlider");
+      const sampleCard = document.getElementById("sampleCard");
+      const previewBtn = document.getElementById("previewBtn");
+      const previewPill = document.getElementById("previewPill");
+
+      function updatePreview() {
+        const themeKey = accentSelect.value;
+        const theme = themes[themeKey];
+        const opacity = (opacitySlider.value / 100).toFixed(2);
+        const blur = blurSlider.value + "px";
+
+        sampleCard.style.background = `rgba(255, 255, 255, ${opacity})`;
+        sampleCard.style.backdropFilter = `blur(${blur})`;
+        sampleCard.style.webkitBackdropFilter = `blur(${blur})`;
+
+        previewBtn.style.background = theme.gradient;
+        previewBtn.style.boxShadow = `0 4px 15px ${theme.glow}`;
+        previewPill.style.color = theme.pillColor;
+      }
+
+      accentSelect.addEventListener("change", updatePreview);
+      opacitySlider.addEventListener("input", updatePreview);
+      blurSlider.addEventListener("input", updatePreview);
+      updatePreview();
+    </script>
+  </body>
 </html>
