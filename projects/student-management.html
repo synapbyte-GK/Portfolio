@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Management System | Ganesh Kumar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #0f0f1a;
+      --card: rgba(255, 255, 255, 0.04);
+      --card-hover: rgba(255, 255, 255, 0.07);
+      --border: rgba(255, 255, 255, 0.08);
+      --a1: #8b5cf6;
+      --a2: #3b82f6;
+      --a3: #10b981;
+      --danger: #ef4444;
+      --warn: #f59e0b;
+      --text: #f1f5f9;
+      --sub: #94a3b8;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(10, 10, 15, 0.9);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+    }
+    .logo {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #a78bfa, #60a5fa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--sub);
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .back-btn:hover { color: #a78bfa; }
+
+    main {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+      flex: 1;
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .title-box h1 { font-size: 1.9rem; font-weight: 800; }
+    .title-box p { color: var(--sub); font-size: 0.88rem; margin-top: 0.25rem; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.3rem;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.25s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--a1), var(--a2));
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(139, 92, 246, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(139, 92, 246, 0.45);
+    }
+    .btn-outline {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--sub);
+    }
+    .btn-outline:hover {
+      border-color: var(--a1);
+      color: var(--text);
+    }
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+    }
+    .btn-danger:hover {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .stat-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+    .stat-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .si-purple { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+    .si-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .si-green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .si-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .stat-val {
+      font-size: 1.7rem;
+      font-weight: 800;
+      font-family: 'Fira Code', monospace;
+      line-height: 1.1;
+    }
+    .stat-label {
+      font-size: 0.76rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.25rem;
+    }
+
+    /* Control Toolbar */
+    .toolbar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.55rem 0.9rem;
+      gap: 0.6rem;
+      flex: 1;
+      min-width: 240px;
+      max-width: 400px;
+    }
+    .search-box i { color: var(--muted); font-size: 0.85rem; }
+    .search-box input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-size: 0.875rem;
+      width: 100%;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .custom-select {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      cursor: pointer;
+    }
+    .custom-select option {
+      background: #11111b;
+      color: var(--text);
+    }
+
+    /* Table Container */
+    .table-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+    .table-responsive {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    thead {
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      padding: 1rem 1.25rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: pointer;
+    }
+    .top-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .text-right { text-align: right; }
+    .d-none { display: none; }
+    th:hover { color: var(--text); }
+    th i { margin-left: 0.3rem; font-size: 0.7rem; }
+    td {
+      padding: 1.05rem 1.25rem;
+      font-size: 0.88rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr {
+      transition: background 0.15s;
+    }
+    tbody tr:hover {
+      background: var(--card-hover);
+    }
+    .student-profile {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--a1), var(--a2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: #fff;
+    }
+    .student-name {
+      font-weight: 600;
+      color: var(--text);
+    }
+    .student-email {
+      font-size: 0.74rem;
+      color: var(--sub);
+      display: block;
+      margin-top: 1px;
+    }
+    .roll-badge {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      color: #38bdf8;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.22rem 0.65rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-cs { background: rgba(139, 92, 246, 0.15); color: #c084fc; }
+    .badge-it { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .badge-ece { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .badge-ee { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .gpa-pill {
+      font-family: 'Fira Code', monospace;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+    }
+    .gpa-high { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .gpa-mid { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .gpa-low { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+    .status-paid {
+      color: #34d399;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+    }
+    .status-due {
+      color: #f87171;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+    }
+
+    .action-btns {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--sub);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      transition: all 0.2s;
+    }
+    .icon-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+    .icon-btn.edit:hover {
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+    .icon-btn.del:hover {
+      border-color: #f87171;
+      color: #f87171;
+    }
+
+    .empty-state {
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--sub);
+    }
+    .empty-state i {
+      font-size: 3rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      padding: 1rem;
+    }
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal {
+      background: #11111c;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 550px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+    }
+    .modal-backdrop.open .modal {
+      transform: scale(1);
+    }
+    .modal-header {
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-header h3 { font-size: 1.2rem; font-weight: 700; }
+    .close-modal {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0.3rem;
+    }
+    .close-modal:hover { color: var(--text); }
+    .modal-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--sub);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .form-group input, .form-group select {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.65rem 0.9rem;
+      color: var(--text);
+      font-size: 0.88rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--a1);
+    }
+    .form-group select option {
+      background: #11111c;
+      color: #fff;
+    }
+    .modal-footer {
+      padding: 1.25rem 1.75rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.8rem;
+    }
+
+    /* Toast Notification */
+    .toast-box {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #161626;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      z-index: 2000;
+      transform: translateY(120%);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast-box.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .toast-box i { font-size: 1.1rem; color: #10b981; }
+
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .search-box { max-width: none; }
+      .filter-group { justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <i class="fas fa-graduation-cap"></i>
+      <span>EduManager Pro</span>
+    </div>
+    <a href="../index.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      <span>Back to Portfolio</span>
+    </a>
+  </header>
+
+  <main>
+    <div class="top-bar">
+      <div class="title-box">
+        <h1>Student Management System</h1>
+        <p>Object-Oriented full student registry with live CRUD operations, metrics calculation & search</p>
+      </div>
+      <div class="top-actions">
+        <button class="btn btn-outline" id="exportBtn">
+          <i class="fas fa-file-export"></i> Export CSV
+        </button>
+        <button class="btn btn-outline" id="seedBtn">
+          <i class="fas fa-sync-alt"></i> Reset Demo Data
+        </button>
+        <button class="btn btn-primary" id="openAddModal">
+          <i class="fas fa-plus"></i> Add Student
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon si-purple"><i class="fas fa-users"></i></div>
+        <div>
+          <div class="stat-val" id="totalCount">0</div>
+          <div class="stat-label">Total Enrolled</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon si-blue"><i class="fas fa-chart-line"></i></div>
+        <div>
+          <div class="stat-val" id="avgGpa">0.00</div>
+          <div class="stat-label">Class Average GPA</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon si-green"><i class="fas fa-award"></i></div>
+        <div>
+          <div class="stat-val" id="topGpa">0.00</div>
+          <div class="stat-label">Highest GPA</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon si-amber"><i class="fas fa-user-check"></i></div>
+        <div>
+          <div class="stat-val" id="avgAtt">0%</div>
+          <div class="stat-label">Avg Attendance</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter & Action Bar -->
+    <div class="toolbar">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search by name, roll no, or email..."/>
+      </div>
+      <div class="filter-group">
+        <select id="deptFilter" class="custom-select" title="Filter by Department">
+          <option value="ALL">All Departments</option>
+          <option value="Computer Science">Computer Science</option>
+          <option value="Information Tech">Information Tech</option>
+          <option value="Electronics & Comm">Electronics & Comm</option>
+          <option value="Electrical Eng">Electrical Eng</option>
+        </select>
+        <select id="feeFilter" class="custom-select" title="Filter by Fee Status">
+          <option value="ALL">Fee Status: All</option>
+          <option value="Paid">Paid</option>
+          <option value="Pending">Pending</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Students Table -->
+    <div class="table-card">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th data-sort="roll">Roll No <i class="fas fa-sort"></i></th>
+              <th data-sort="name">Student Name <i class="fas fa-sort"></i></th>
+              <th data-sort="dept">Department <i class="fas fa-sort"></i></th>
+              <th data-sort="semester">Semester <i class="fas fa-sort"></i></th>
+              <th data-sort="gpa">GPA / CGPA <i class="fas fa-sort"></i></th>
+              <th data-sort="attendance">Attendance <i class="fas fa-sort"></i></th>
+              <th>Fee Status</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentTableBody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+      <div id="emptyMessage" class="empty-state d-none">
+        <i class="fas fa-folder-open"></i>
+        <h3>No Students Found</h3>
+        <p>Try clearing your filters or add a new student above.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add / Edit Modal -->
+  <div class="modal-backdrop" id="studentModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Enroll New Student</h3>
+        <button class="close-modal" id="closeModal">&times;</button>
+      </div>
+      <form id="studentForm">
+        <div class="modal-body">
+          <input type="hidden" id="editId"/>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="formName">Full Name *</label>
+              <input type="text" id="formName" required placeholder="e.g. Rahul Sharma"/>
+            </div>
+            <div class="form-group">
+              <label for="formRoll">Roll Number *</label>
+              <input type="text" id="formRoll" required placeholder="e.g. CS2024-042"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="formEmail">Email Address *</label>
+              <input type="email" id="formEmail" required placeholder="e.g. rahul@university.edu"/>
+            </div>
+            <div class="form-group">
+              <label for="formDept">Department *</label>
+              <select id="formDept" required title="Department">
+                <option value="Computer Science">Computer Science</option>
+                <option value="Information Tech">Information Tech</option>
+                <option value="Electronics & Comm">Electronics & Comm</option>
+                <option value="Electrical Eng">Electrical Eng</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="formSem">Semester</label>
+              <select id="formSem" title="Semester">
+                <option value="1st Sem">1st Sem</option>
+                <option value="2nd Sem">2nd Sem</option>
+                <option value="3rd Sem">3rd Sem</option>
+                <option value="4th Sem">4th Sem</option>
+                <option value="5th Sem">5th Sem</option>
+                <option value="6th Sem" selected>6th Sem</option>
+                <option value="7th Sem">7th Sem</option>
+                <option value="8th Sem">8th Sem</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="formGpa">CGPA (0 - 10) *</label>
+              <input type="number" id="formGpa" step="0.01" min="0" max="10" required placeholder="e.g. 8.75"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="formAttendance">Attendance (%) *</label>
+              <input type="number" id="formAttendance" min="0" max="100" required placeholder="e.g. 92"/>
+            </div>
+            <div class="form-group">
+              <label for="formFee">Fee Status</label>
+              <select id="formFee" title="Fee Status">
+                <option value="Paid">Paid</option>
+                <option value="Pending">Pending</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelModal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveBtn">Save Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-box" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Action succeeded!</span>
+  </div>
+
+  <script>
+    // Initial Seed Data
+    const INITIAL_STUDENTS = [
+      { id: '1', roll: 'CS-2024-001', name: 'Aarav Patel', email: 'aarav.patel@univ.edu', dept: 'Computer Science', semester: '6th Sem', gpa: 9.42, attendance: 95, fee: 'Paid' },
+      { id: '2', roll: 'CS-2024-014', name: 'Priya Sharma', email: 'priya.s@univ.edu', dept: 'Computer Science', semester: '6th Sem', gpa: 8.91, attendance: 88, fee: 'Paid' },
+      { id: '3', roll: 'IT-2024-023', name: 'Rohan Verma', email: 'rohan.v@univ.edu', dept: 'Information Tech', semester: '4th Sem', gpa: 7.84, attendance: 79, fee: 'Pending' },
+      { id: '4', roll: 'EC-2024-009', name: 'Ananya Gupta', email: 'ananya.g@univ.edu', dept: 'Electronics & Comm', semester: '6th Sem', gpa: 9.15, attendance: 92, fee: 'Paid' },
+      { id: '5', roll: 'CS-2024-037', name: 'Devendra Singh', email: 'dev.singh@univ.edu', dept: 'Computer Science', semester: '8th Sem', gpa: 8.20, attendance: 84, fee: 'Paid' },
+      { id: '6', roll: 'EE-2024-012', name: 'Sneha Reddy', email: 'sneha.r@univ.edu', dept: 'Electrical Eng', semester: '2nd Sem', gpa: 6.95, attendance: 72, fee: 'Pending' }
+    ];
+
+    const STORAGE_KEY = 'edu_manager_students_v1';
+    let students = loadStudents();
+    let currentSort = { field: 'roll', direction: 'asc' };
+
+    function loadStudents() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      if (data) {
+        try { return JSON.parse(data); } catch(e){}
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_STUDENTS));
+      return [...INITIAL_STUDENTS];
+    }
+
+    function saveStudents() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
+      updateUI();
+    }
+
+    // Department color badge helper
+    function getDeptBadge(dept) {
+      if (dept.includes('Computer')) return 'badge-cs';
+      if (dept.includes('Information')) return 'badge-it';
+      if (dept.includes('Electronics')) return 'badge-ece';
+      return 'badge-ee';
+    }
+
+    function getGpaClass(gpa) {
+      if (gpa >= 8.5) return 'gpa-high';
+      if (gpa >= 7.0) return 'gpa-mid';
+      return 'gpa-low';
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function updateStats() {
+      const total = students.length;
+      document.getElementById('totalCount').textContent = total;
+      if (total === 0) {
+        document.getElementById('avgGpa').textContent = '0.00';
+        document.getElementById('topGpa').textContent = '0.00';
+        document.getElementById('avgAtt').textContent = '0%';
+        return;
+      }
+      const sumGpa = students.reduce((acc, s) => acc + Number(s.gpa), 0);
+      const maxGpa = Math.max(...students.map(s => Number(s.gpa)));
+      const sumAtt = students.reduce((acc, s) => acc + Number(s.attendance), 0);
+
+      document.getElementById('avgGpa').textContent = (sumGpa / total).toFixed(2);
+      document.getElementById('topGpa').textContent = maxGpa.toFixed(2);
+      document.getElementById('avgAtt').textContent = Math.round(sumAtt / total) + '%';
+    }
+
+    function renderTable() {
+      const search = document.getElementById('searchInput').value.toLowerCase().trim();
+      const deptFilter = document.getElementById('deptFilter').value;
+      const feeFilter = document.getElementById('feeFilter').value;
+      const tbody = document.getElementById('studentTableBody');
+      const emptyMsg = document.getElementById('emptyMessage');
+
+      let filtered = students.filter(s => {
+        const matchesSearch = s.name.toLowerCase().includes(search) ||
+                              s.roll.toLowerCase().includes(search) ||
+                              s.email.toLowerCase().includes(search);
+        const matchesDept = deptFilter === 'ALL' || s.dept === deptFilter;
+        const matchesFee = feeFilter === 'ALL' || s.fee === feeFilter;
+        return matchesSearch && matchesDept && matchesFee;
+      });
+
+      // Sort
+      filtered.sort((a, b) => {
+        let valA = a[currentSort.field];
+        let valB = b[currentSort.field];
+        if (typeof valA === 'string') {
+          return currentSort.direction === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        }
+        return currentSort.direction === 'asc' ? valA - valB : valB - valA;
+      });
+
+      tbody.innerHTML = '';
+      if (filtered.length === 0) {
+        emptyMsg.style.display = 'block';
+        return;
+      }
+      emptyMsg.style.display = 'none';
+
+      filtered.forEach(s => {
+        const initials = s.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="roll-badge">${s.roll}</span></td>
+          <td>
+            <div class="student-profile">
+              <div class="avatar">${initials}</div>
+              <div>
+                <span class="student-name">${s.name}</span>
+                <span class="student-email">${s.email}</span>
+              </div>
+            </div>
+          </td>
+          <td><span class="badge ${getDeptBadge(s.dept)}">${s.dept}</span></td>
+          <td>${s.semester}</td>
+          <td><span class="gpa-pill ${getGpaClass(s.gpa)}">${Number(s.gpa).toFixed(2)}</span></td>
+          <td>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span>${s.attendance}%</span>
+              <div style="width:50px; height:6px; background:rgba(255,255,255,0.1); border-radius:10px; overflow:hidden;">
+                <div style="width:${s.attendance}%; height:100%; background:${s.attendance >= 75 ? '#10b981' : '#f59e0b'};"></div>
+              </div>
+            </div>
+          </td>
+          <td>
+            ${s.fee === 'Paid'
+              ? '<span class="status-paid"><i class="fas fa-check-circle"></i> Paid</span>'
+              : '<span class="status-due"><i class="fas fa-exclamation-circle"></i> Pending</span>'}
+          </td>
+          <td style="text-align: right;">
+            <div class="action-btns" style="justify-content: flex-end;">
+              <button class="icon-btn edit" onclick="editStudent('${s.id}')" title="Edit Student">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="icon-btn del" onclick="deleteStudent('${s.id}')" title="Delete Student">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateUI() {
+      updateStats();
+      renderTable();
+    }
+
+    // Modal Control
+    const modal = document.getElementById('studentModal');
+    const form = document.getElementById('studentForm');
+
+    function openModal(isEdit = false, data = null) {
+      document.getElementById('modalTitle').textContent = isEdit ? 'Edit Student Record' : 'Enroll New Student';
+      document.getElementById('saveBtn').textContent = isEdit ? 'Update Details' : 'Add Student';
+      if (isEdit && data) {
+        document.getElementById('editId').value = data.id;
+        document.getElementById('formName').value = data.name;
+        document.getElementById('formRoll').value = data.roll;
+        document.getElementById('formEmail').value = data.email;
+        document.getElementById('formDept').value = data.dept;
+        document.getElementById('formSem').value = data.semester;
+        document.getElementById('formGpa').value = data.gpa;
+        document.getElementById('formAttendance').value = data.attendance;
+        document.getElementById('formFee').value = data.fee;
+      } else {
+        form.reset();
+        document.getElementById('editId').value = '';
+      }
+      modal.classList.add('open');
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      form.reset();
+    }
+
+    document.getElementById('openAddModal').addEventListener('click', () => openModal(false));
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    document.getElementById('cancelModal').addEventListener('click', closeModal);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const editId = document.getElementById('editId').value;
+      const studentData = {
+        name: document.getElementById('formName').value.trim(),
+        roll: document.getElementById('formRoll').value.trim(),
+        email: document.getElementById('formEmail').value.trim(),
+        dept: document.getElementById('formDept').value,
+        semester: document.getElementById('formSem').value,
+        gpa: parseFloat(document.getElementById('formGpa').value) || 0,
+        attendance: parseInt(document.getElementById('formAttendance').value, 10) || 0,
+        fee: document.getElementById('formFee').value
+      };
+
+      if (editId) {
+        const index = students.findIndex(s => s.id === editId);
+        if (index !== -1) {
+          students[index] = { ...students[index], ...studentData };
+          showToast(`Student ${studentData.name} updated successfully!`);
+        }
+      } else {
+        const newStudent = {
+          id: Date.now().toString(),
+          ...studentData
+        };
+        students.unshift(newStudent);
+        showToast(`Student ${studentData.name} added successfully!`);
+      }
+
+      saveStudents();
+      closeModal();
+    });
+
+    window.editStudent = function(id) {
+      const student = students.find(s => s.id === id);
+      if (student) openModal(true, student);
+    };
+
+    window.deleteStudent = function(id) {
+      const s = students.find(item => item.id === id);
+      if (confirm(`Are you sure you want to delete ${s ? s.name : 'this student'}?`)) {
+        students = students.filter(item => item.id !== id);
+        saveStudents();
+        showToast('Student deleted successfully!');
+      }
+    };
+
+    // Filter and Search Events
+    document.getElementById('searchInput').addEventListener('input', renderTable);
+    document.getElementById('deptFilter').addEventListener('change', renderTable);
+    document.getElementById('feeFilter').addEventListener('change', renderTable);
+
+    // Sorting Headers
+    document.querySelectorAll('th[data-sort]').forEach(th => {
+      th.addEventListener('click', () => {
+        const field = th.getAttribute('data-sort');
+        if (currentSort.field === field) {
+          currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+        } else {
+          currentSort.field = field;
+          currentSort.direction = 'asc';
+        }
+        renderTable();
+      });
+    });
+
+    // Reset Demo Data
+    document.getElementById('seedBtn').addEventListener('click', () => {
+      if (confirm('Reset to initial sample students?')) {
+        students = [...INITIAL_STUDENTS];
+        saveStudents();
+        showToast('Sample dataset restored!');
+      }
+    });
+
+    // Export CSV
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      if (students.length === 0) {
+        alert('No data to export!');
+        return;
+      }
+      const headers = ['Roll No', 'Name', 'Email', 'Department', 'Semester', 'GPA', 'Attendance', 'Fee Status'];
+      const rows = students.map(s => [
+        `"${s.roll}"`,
+        `"${s.name}"`,
+        `"${s.email}"`,
+        `"${s.dept}"`,
+        `"${s.semester}"`,
+        s.gpa,
+        `${s.attendance}%`,
+        `"${s.fee}"`
+      ]);
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'student_records.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('CSV export downloaded!');
+    });
+
+    // Initial render
+    updateUI();
+  </script>
+</body>
+</html>

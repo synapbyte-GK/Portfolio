@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task Manager App | Ganesh Kumar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    :root{--bg:#0a0a0f;--bg2:#0f0f1a;--card:rgba(255,255,255,0.05);--border:rgba(255,255,255,0.08);--a1:#7c3aed;--a2:#06b6d4;--a3:#f472b6;--text:#f1f5f9;--sub:#94a3b8;--muted:#64748b}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+    header{background:rgba(10,10,15,.9);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+    .logo{font-family:'Fira Code',monospace;font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#a78bfa,#38bdf8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .back-btn{display:flex;align-items:center;gap:.5rem;color:var(--sub);font-size:.85rem;text-decoration:none;transition:color .3s}
+    .back-btn:hover{color:var(--a2)}
+
+    main{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+    .top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2rem}
+    .top-bar h1{font-size:1.8rem;font-weight:800}
+    .top-bar p{color:var(--sub);font-size:.85rem;margin-top:.2rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.4rem;border-radius:100px;font-size:.875rem;font-weight:600;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all .3s}
+    .btn-primary{background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;box-shadow:0 4px 20px rgba(124,58,237,.3)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(124,58,237,.4)}
+    .btn-outline{background:none;border:1px solid var(--border);color:var(--sub)}
+    .btn-outline:hover{border-color:var(--a1);color:var(--a1)}
+
+    /* Stats row */
+    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+    .stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem;text-align:center}
+    .stat-num{font-size:1.8rem;font-weight:800;font-family:'Fira Code',monospace}
+    .stat-lbl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:.2rem}
+
+    /* Filters */
+    .filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+    .filter-btn{padding:.35rem .9rem;border-radius:100px;border:1px solid var(--border);background:var(--card);color:var(--sub);font-size:.78rem;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+    .filter-btn.active,.filter-btn:hover{background:var(--a1);color:#fff;border-color:var(--a1)}
+
+    /* Board */
+    .board{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .column{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem;min-height:400px}
+    .col-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+    .col-title{display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:.9rem}
+    .col-dot{width:10px;height:10px;border-radius:50%}
+    .col-count{background:rgba(255,255,255,.08);padding:.15rem .5rem;border-radius:100px;font-size:.72rem;font-family:'Fira Code',monospace}
+
+    .top-btn-group{display:flex;gap:.5rem}
+    .stat-c-cyan{color:var(--a2)}
+    .stat-c-red{color:#f87171}
+    .stat-c-yellow{color:#fbbf24}
+    .stat-c-green{color:#34d399}
+    .dot-red{background:#f87171}
+    .dot-yellow{background:#fbbf24}
+    .dot-green{background:#34d399}
+    .form-row-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+    .task-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem;margin-bottom:.6rem;cursor:grab;transition:all .2s;position:relative;-webkit-user-select:none;user-select:none}
+    .task-card:hover{border-color:var(--a1);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+    .task-card.dragging{opacity:.5;cursor:grabbing}
+    .task-card.drag-over{border-color:var(--a2);background:rgba(6,182,212,.05)}
+
+    .task-header{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.5rem}
+    .task-title{font-size:.875rem;font-weight:600;line-height:1.3}
+    .task-actions{display:flex;gap:.3rem;opacity:0;transition:opacity .2s}
+    .task-card:hover .task-actions{opacity:1}
+    .task-btn{width:24px;height:24px;border-radius:6px;border:none;background:rgba(255,255,255,.06);color:var(--sub);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+    .task-btn:hover{background:var(--a1);color:#fff}
+    .task-btn.delete:hover{background:#f87171}
+
+    .task-desc{font-size:.78rem;color:var(--sub);margin-bottom:.65rem;line-height:1.5}
+    .task-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem}
+    .priority{padding:.15rem .55rem;border-radius:100px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+    .p-high{background:rgba(248,113,113,.15);color:#f87171;border:1px solid rgba(248,113,113,.25)}
+    .p-medium{background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.25)}
+    .p-low{background:rgba(52,211,153,.15);color:#34d399;border:1px solid rgba(52,211,153,.25)}
+    .tag{padding:.12rem .5rem;border-radius:100px;font-size:.65rem;font-weight:600;background:rgba(124,58,237,.15);color:var(--a2);border:1px solid rgba(124,58,237,.2)}
+    .due{font-size:.7rem;color:var(--muted);font-family:'Fira Code',monospace}
+
+    /* Drop zone indicator */
+    .drop-zone{border:2px dashed var(--a2);border-radius:10px;padding:1rem;text-align:center;color:var(--a2);font-size:.78rem;opacity:0;transition:opacity .2s;pointer-events:none}
+    .column.drag-over .drop-zone{opacity:1}
+
+    /* Modal */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;visibility:hidden;transition:all .3s;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+    .modal-overlay.open{opacity:1;visibility:visible}
+    .modal{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:2rem;width:90%;max-width:480px;transform:translateY(20px);transition:transform .3s}
+    .modal-overlay.open .modal{transform:translateY(0)}
+    .modal h3{font-size:1.2rem;font-weight:700;margin-bottom:1.5rem}
+    .form-group{margin-bottom:1rem}
+    .form-group label{display:block;font-size:.78rem;color:var(--sub);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+    .form-group input,.form-group textarea,.form-group select{width:100%;padding:.7rem 1rem;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text);font-family:'Inter',sans-serif;font-size:.875rem;outline:none;transition:border-color .2s;resize:none}
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--a1);background:rgba(124,58,237,.06)}
+    .form-group select option{background:var(--bg2);color:var(--text)}
+    .modal-footer{display:flex;gap:.75rem;justify-content:flex-end;margin-top:1.5rem}
+
+    @media(max-width:768px){.board{grid-template-columns:1fr}.stats-row{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+<header>
+  <a href="../index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+  <span class="logo">&lt;TaskManager/&gt;</span>
+  <button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Add Task</button>
+</header>
+
+<main>
+  <div class="top-bar">
+    <div><h1>📋 Task Manager</h1><p>Drag & drop tasks between columns • Data saved locally</p></div>
+    <div class="top-btn-group">
+      <button class="btn btn-outline" onclick="clearCompleted()"><i class="fas fa-trash"></i> Clear Done</button>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num stat-c-cyan" id="s-total">0</div><div class="stat-lbl">Total Tasks</div></div>
+    <div class="stat-card"><div class="stat-num stat-c-red" id="s-todo">0</div><div class="stat-lbl">To Do</div></div>
+    <div class="stat-card"><div class="stat-num stat-c-yellow" id="s-prog">0</div><div class="stat-lbl">In Progress</div></div>
+    <div class="stat-card"><div class="stat-num stat-c-green" id="s-done">0</div><div class="stat-lbl">Completed</div></div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterTasks('all',this)">All</button>
+    <button class="filter-btn" onclick="filterTasks('high',this)">🔴 High Priority</button>
+    <button class="filter-btn" onclick="filterTasks('medium',this)">🟡 Medium</button>
+    <button class="filter-btn" onclick="filterTasks('low',this)">🟢 Low</button>
+  </div>
+
+  <div class="board">
+    <div class="column" id="col-todo" ondragover="onDragOver(event,'todo')" ondrop="onDrop(event,'todo')" ondragleave="onDragLeave(event)">
+      <div class="col-header"><div class="col-title"><div class="col-dot dot-red"></div>To Do</div><span class="col-count" id="cnt-todo">0</span></div>
+      <div id="tasks-todo"></div>
+      <div class="drop-zone">Drop here</div>
+    </div>
+    <div class="column" id="col-progress" ondragover="onDragOver(event,'progress')" ondrop="onDrop(event,'progress')" ondragleave="onDragLeave(event)">
+      <div class="col-header"><div class="col-title"><div class="col-dot dot-yellow"></div>In Progress</div><span class="col-count" id="cnt-progress">0</span></div>
+      <div id="tasks-progress"></div>
+      <div class="drop-zone">Drop here</div>
+    </div>
+    <div class="column" id="col-done" ondragover="onDragOver(event,'done')" ondrop="onDrop(event,'done')" ondragleave="onDragLeave(event)">
+      <div class="col-header"><div class="col-title"><div class="col-dot dot-green"></div>Done</div><span class="col-count" id="cnt-done">0</span></div>
+      <div id="tasks-done"></div>
+      <div class="drop-zone">Drop here</div>
+    </div>
+  </div>
+</main>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3 id="modal-title">➕ Add New Task</h3>
+    <div class="form-group"><label for="f-title">Task Title *</label><input id="f-title" placeholder="Enter task title..." /></div>
+    <div class="form-group"><label for="f-desc">Description</label><textarea id="f-desc" rows="2" placeholder="Brief description..."></textarea></div>
+    <div class="form-row-grid">
+      <div class="form-group"><label for="f-priority">Priority</label>
+        <select id="f-priority" title="Task Priority"><option value="high">🔴 High</option><option value="medium" selected>🟡 Medium</option><option value="low">🟢 Low</option></select>
+      </div>
+      <div class="form-group"><label for="f-tag">Category</label>
+        <select id="f-tag" title="Task Category"><option>Development</option><option>Design</option><option>Testing</option><option>Research</option><option>DevOps</option></select>
+      </div>
+    </div>
+    <div class="form-group"><label for="f-due">Due Date</label><input id="f-due" type="date" title="Due Date"/></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveTask()"><i class="fas fa-save"></i> Save Task</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let tasks = JSON.parse(localStorage.getItem('gk-tasks') || 'null') || [
+    {id:1,title:'Build IoT Sensor Dashboard',desc:'Create real-time dashboard for temperature monitoring',priority:'high',tag:'Development',due:'2026-10-15',status:'todo'},
+    {id:2,title:'Learn React Framework',desc:'Complete React tutorials and build a sample project',priority:'medium',tag:'Research',due:'2026-10-20',status:'progress'},
+    {id:3,title:'Portfolio Design Update',desc:'Add new projects and update skills section',priority:'high',tag:'Design',due:'2026-10-10',status:'done'},
+    {id:4,title:'DSA Practice — Trees',desc:'Solve 10 tree problems on LeetCode',priority:'medium',tag:'Development',due:'2026-10-18',status:'todo'},
+    {id:5,title:'Submit Assignment',desc:'Operating Systems assignment submission',priority:'high',tag:'Research',due:'2026-10-12',status:'progress'},
+    {id:6,title:'Git Workflow',desc:'Set up proper branching strategy for projects',priority:'low',tag:'DevOps',due:'2026-10-25',status:'done'}
+  ];
+  let nextId = Math.max(...tasks.map(t=>t.id)) + 1;
+  let dragId = null;
+  let editId = null;
+  let currentFilter = 'all';
+
+  function save() { localStorage.setItem('gk-tasks', JSON.stringify(tasks)); }
+
+  function render() {
+    const cols = ['todo','progress','done'];
+    cols.forEach(s => {
+      let filtered = tasks.filter(t => t.status === s);
+      if (currentFilter !== 'all') filtered = filtered.filter(t => t.priority === currentFilter);
+      document.getElementById('tasks-' + s).innerHTML = filtered.map(taskHTML).join('');
+      document.getElementById('cnt-' + s).textContent = filtered.length;
+    });
+    document.getElementById('s-total').textContent = tasks.length;
+    document.getElementById('s-todo').textContent = tasks.filter(t=>t.status==='todo').length;
+    document.getElementById('s-prog').textContent = tasks.filter(t=>t.status==='progress').length;
+    document.getElementById('s-done').textContent = tasks.filter(t=>t.status==='done').length;
+
+    document.querySelectorAll('.task-card').forEach(c => {
+      c.setAttribute('draggable','true');
+      c.addEventListener('dragstart', e => { dragId = +c.dataset.id; c.classList.add('dragging'); });
+      c.addEventListener('dragend', () => c.classList.remove('dragging'));
+    });
+  }
+
+  function taskHTML(t) {
+    const pCls = {high:'p-high',medium:'p-medium',low:'p-low'}[t.priority];
+    const pLabel = {high:'🔴 High',medium:'🟡 Medium',low:'🟢 Low'}[t.priority];
+    const overdueStyle = t.due && new Date(t.due) < new Date() && t.status !== 'done' ? 'color:#f87171' : '';
+    return `<div class="task-card" data-id="${t.id}">
+      <div class="task-header">
+        <div class="task-title">${t.title}</div>
+        <div class="task-actions">
+          <button class="task-btn" onclick="editTask(${t.id})" title="Edit"><i class="fas fa-pen"></i></button>
+          <button class="task-btn delete" onclick="deleteTask(${t.id})" title="Delete"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+      ${t.desc ? `<div class="task-desc">${t.desc}</div>` : ''}
+      <div class="task-meta">
+        <span class="priority ${pCls}">${pLabel}</span>
+        <span class="tag">${t.tag}</span>
+        ${t.due ? `<span class="due" style="${overdueStyle}"><i class="fas fa-calendar"></i> ${t.due}</span>` : ''}
+      </div>
+    </div>`;
+  }
+
+  function onDragOver(e, col) {
+    e.preventDefault();
+    document.getElementById('col-'+col).classList.add('drag-over');
+  }
+  function onDragLeave(e) {
+    e.currentTarget.classList.remove('drag-over');
+  }
+  function onDrop(e, status) {
+    e.preventDefault();
+    e.currentTarget.classList.remove('drag-over');
+    if (dragId) {
+      const t = tasks.find(t => t.id === dragId);
+      if (t) { t.status = status; save(); render(); }
+      dragId = null;
+    }
+  }
+
+  function deleteTask(id) {
+    tasks = tasks.filter(t => t.id !== id);
+    save(); render();
+  }
+
+  function editTask(id) {
+    const t = tasks.find(t => t.id === id);
+    editId = id;
+    document.getElementById('f-title').value = t.title;
+    document.getElementById('f-desc').value = t.desc;
+    document.getElementById('f-priority').value = t.priority;
+    document.getElementById('f-tag').value = t.tag;
+    document.getElementById('f-due').value = t.due;
+    document.getElementById('modal-title').textContent = '✏️ Edit Task';
+    openModal();
+  }
+
+  function openModal() { document.getElementById('modal').classList.add('open'); }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    editId = null;
+    document.getElementById('f-title').value = '';
+    document.getElementById('f-desc').value = '';
+    document.getElementById('f-due').value = '';
+    document.getElementById('modal-title').textContent = '➕ Add New Task';
+  }
+
+  function saveTask() {
+    const title = document.getElementById('f-title').value.trim();
+    if (!title) { document.getElementById('f-title').style.borderColor = '#f87171'; return; }
+    document.getElementById('f-title').style.borderColor = '';
+    const data = {
+      id: editId || nextId++,
+      title,
+      desc: document.getElementById('f-desc').value.trim(),
+      priority: document.getElementById('f-priority').value,
+      tag: document.getElementById('f-tag').value,
+      due: document.getElementById('f-due').value,
+      status: editId ? tasks.find(t=>t.id===editId).status : 'todo'
+    };
+    if (editId) tasks = tasks.map(t => t.id === editId ? data : t);
+    else tasks.push(data);
+    save(); render(); closeModal();
+  }
+
+  function filterTasks(f, btn) {
+    currentFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  }
+
+  function clearCompleted() {
+    tasks = tasks.filter(t => t.status !== 'done');
+    save(); render();
+  }
+
+  document.getElementById('modal').addEventListener('click', e => {
+    if (e.target.id === 'modal') closeModal();
+  });
+
+  render();
+</script>
+</body>
+</html>
